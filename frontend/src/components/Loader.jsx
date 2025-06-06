@@ -18,7 +18,7 @@ const Loading = () => {
                 <div
                     className="w-16 h-16 border-[6px] border-blue-500 border-t-transparent rounded-full animate-[spin_2s_linear_infinite]"
                 />
-                <p className="text-blue-500 font-medium text-lg">در حال بارگذاری...</p>
+                <p className="text-blue-500 font-medium text-lg">در حال بارگیری...</p>
             </div>
         </div>
     );
