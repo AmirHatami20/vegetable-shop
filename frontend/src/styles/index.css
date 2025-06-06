@@ -1,0 +1,31 @@
+@import "tailwindcss";
+@import 'swiper/css';
+@import 'swiper/css/pagination';
+@import "react-toastify/dist/ReactToastify.css";
+
+@layer base {
+    body {
+        direction: rtl;
+        font-family: "IRANSans", sans-serif;
+    }
+    button {
+        cursor: pointer;
+    }
+    img{
+        object-fit: contain;
+        object-position: center;
+    }
+}
+
+@layer components {
+    .container {
+        @apply mx-auto;
+    }
+    .auth-input {
+        @apply w-full mt-1 bg-slate-200 px-2 py-1 rounded focus-within:outline-blue-300;
+    }
+
+    .auth-button {
+        @apply max-w-[150px] mx-auto w-full bg-red-500 hover:bg-red-600 text-white cursor-pointer rounded-full text-xl font-medium text-center py-1 mt-3;
+    }
+}
