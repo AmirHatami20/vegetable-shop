@@ -1,49 +1,57 @@
-const ProductModel = require("../models/product")
+const ProductModel = require("../models/product");
+const {UploadClient} = require("@uploadcare/upload-client");
+
+const client = new UploadClient({publicKey: process.env.UPLOADCARE_PUBLIC_KEY});
 
 module.exports = {
     create: async function (req, res) {
-        const {name, category, price, description} = req.body
+        const {name, category, price, description} = req.body;
         const file = req.file;
 
-        if (!file || file.length === 0) {
+        if (!file) {
             return res.status(400).json({
                 success: false,
-                message: 'No files uploaded'
+                message: "No file uploaded",
             });
         }
 
-        const imageUrl = `${req.protocol}://${req.get("host")}/uploads/${file.filename}`;
-
         try {
+            const result = await client.uploadFile(file.buffer, {
+                fileName: file.originalname,
+                contentType: file.mimetype,
+            });
+
+            const imageUrl = `https://ucarecdn.com/${result.uuid}/`;
+
             const product = await ProductModel.create({
                 name,
                 category,
                 imageUrl,
                 price,
                 description,
-            })
+            });
 
-            return res.status(201).send({product})
+            return res.status(201).send({product});
         } catch (err) {
             res.status(400).send({
                 success: false,
                 message: err.message,
-            })
+            });
         }
-
     },
+
     getAll: async function (req, res) {
         try {
             const allProduct = await ProductModel.find()
                 .populate("category")
-                .sort({createdAt: -1})
+                .sort({createdAt: -1});
 
-            return res.status(200).send(JSON.stringify(allProduct))
+            return res.status(200).send(JSON.stringify(allProduct));
         } catch (err) {
             res.status(404).send({
                 success: false,
                 message: err.message,
-            })
+            });
         }
-    }
-}
+    },
+};
