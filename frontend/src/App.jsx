@@ -22,7 +22,7 @@ function App() {
     }, [dispatch]);
 
     if (loading) return <Loader/>;
-    if (error) return <p className="text-red-500">خطا: {error}</p>;
+    if (error) return <p className="flex justify-center items-center min-h-screen text-red-500">سرور خاموش است لطفا مجددا صفحه هارا رفلش کنید تا سرور فعال شود.</p>;
 
     return (
         <>
