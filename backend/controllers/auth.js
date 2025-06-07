@@ -1,5 +1,8 @@
 const jwt = require('jsonwebtoken');
 const UserModel = require("../models/user");
+const {UploadClient} = require("@uploadcare/upload-client");
+
+const client = new UploadClient({publicKey: process.env.UPLOADCARE_PUBLIC_KEY});
 
 const generateToken = (id) => {
     return jwt.sign({id}, process.env.JWT_SECRET, {expiresIn: "7d"});
@@ -14,7 +17,13 @@ module.exports = {
             let imageUrl = '';
 
             if (file) {
-                imageUrl = `${req.protocol}://${req.get("host")}/uploads/${file.filename}`;
+
+                const result = await client.uploadFile(file.buffer, {
+                    fileName: file.originalname,
+                    contentType: file.mimetype,
+                });
+
+                imageUrl = `https://ucarecdn.com/${result.uuid}/`;
             }
 
             const isEmailExist = await UserModel.findOne({email});
