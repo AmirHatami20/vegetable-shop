@@ -10,10 +10,18 @@ function ProductPage() {
     const navigate = useNavigate();
 
     const productData = useSelector((state) => state.product.productList);
-    const mainProduct = productData.filter((product) => product._id === id)[0];
-    const filteredProduct = productData.filter(
-        (product) => product.category.name.toLowerCase() === mainProduct?.category.name.toLowerCase()
+
+    const mainProduct = productData.find(product => product._id === id);
+
+    if (!mainProduct) {
+        return [];
+    }
+
+    const filteredCategory = productData.filter(
+        (product) => product.category.name.toLowerCase() === mainProduct.category.name.toLowerCase()
     );
+
+    const filteredProduct = filteredCategory.filter(product => product._id !== id);
 
     const handleBuy = () => {
         dispatch(addCartItem(mainProduct))
