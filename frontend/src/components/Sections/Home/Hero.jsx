@@ -6,7 +6,7 @@ const Hero = memo(function Hero({productList}) {
     return (
         <div className="grid md:grid-cols-2 grid-cols-1 gap-x-4">
             <div className="flex flex-col space-y-3">
-                <h2 className="xl:text-8xl md:text-7xl text-5xl leading-16 md:leading-28 font-bold">
+                <h2 className="xl:text-7xl md:text-7xl text-5xl leading-16 md:leading-32 font-bold">
                     سریع‌ترین تحویل درب  {" "}
                     <span className="text-red-600">منزل شما</span>
                 </h2>
