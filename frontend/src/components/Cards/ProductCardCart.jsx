@@ -9,7 +9,7 @@ function ProductCardCart(props) {
 
     return (
         <div className="bg-slate-200 w-full flex justify-between md:h-52 h-40 p-2 rounded border border-slate-300">
-            <div className="flex gap-2">
+            <div className="flex gap-x-4">
                 <div className="md:w-[200px] w-[110px] h-full rounded overflow-hidden">
                     <img
                         src={props.imageUrl}
